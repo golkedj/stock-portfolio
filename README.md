@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📈 Stock Portfolio Tracker
 
-## Getting Started
+A simple web application to manage and track stock portfolios using real-time data from [Polygon.io](https://polygon.io). Built with **Next.js App Router**, **TypeScript**, **MUI**, and **Zustand** for state management.
 
-First, run the development server:
+> 🛠 Created as part of a frontend engineering interview assignment.
+
+---
+
+## ✨ Features
+
+- ✅ Create and manage multiple stock portfolios
+- ✅ Add and remove ticker symbols per portfolio
+- ✅ View real-time price, price change (vs previous close), and company name
+- ✅ (Optional) View a 7-day sparkline of price history
+- ✅ Clean, responsive UI with Material UI components
+- ✅ State management via Zustand
+
+---
+
+## 🖼️ Demo
+
+> You can deploy this project to [Vercel](https://vercel.com/) with one click!
+
+```bash
+npm run build
+npm run start
+```
+
+_(Optional: add a screenshot or link to a live deployment here.)_
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/your-username/stock-portfolio-tracker.git
+cd stock-portfolio-tracker
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Add your `.env.local`
+
+Create a file called `.env.local` in the root directory with:
+
+```
+NEXT_PUBLIC_POLYGON_API_KEY=your_polygon_api_key_here
+```
+
+You can get a free API key from [polygon.io](https://polygon.io).
+
+### 4. Run the app locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open your browser at [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧱 Tech Stack
 
-## Learn More
+| Tech           | Usage                                |
+| -------------- | ------------------------------------ |
+| **Next.js**    | App Router + React Server Components |
+| **TypeScript** | Static typing everywhere             |
+| **MUI**        | UI component library                 |
+| **Zustand**    | Lightweight state management         |
+| **Polygon.io** | Stock price data via REST API        |
+| **Recharts**   | (Optional) Sparkline visualization   |
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🧪 Folder Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+/app              → App Router pages & layouts
+/components       → Reusable UI components
+/store            → Zustand store
+/lib              → API integrations (Polygon)
+/types            → Type definitions
+/utils            → Formatters/helpers
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🧠 Notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- The app uses client-side state only (no database/backend).
+- Designed with performance and UX in mind.
+- Real-time prices use the Polygon.io `/snapshot` endpoint.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
+
+> Note: This app was developed as part of an interview assignment and is not intended for production use.
+
+---
+
+## 👤 Author
+
+**David Golke**
+
+- GitHub: [@golkedj](https://github.com/golkedj)
+- LinkedIn: [https://www.linkedin.com/in/david-golke](https://www.linkedin.com/in/david-golke)
