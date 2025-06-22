@@ -13,7 +13,10 @@ export default function HomePage() {
       <Typography variant="h4" gutterBottom>
         Stock Portfolio Tracker
       </Typography>
-      <Button variant="contained" onClick={() => addPortfolio("New Portfolio")}>
+      <Button
+        variant="contained"
+        onClick={() => addPortfolio(`Portfolio ${portfolios.length + 1}`)}
+      >
         + Create New Portfolio
       </Button>
       <Stack spacing={2} mt={2}>
