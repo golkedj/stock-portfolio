@@ -5,9 +5,12 @@ import { Portfolio } from "@/types";
 import { Button, Card, CardContent, Stack } from "@mui/material";
 import PortfolioCardName from "./PortfolioCardName";
 import TickerCard from "./TickerCard";
+import React from "react";
+import TickerDialog from "./TickerDialog";
 
 export default function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
   const removePortfolio = usePortfolioStore((s) => s.removePortfolio);
+  const [tickerDialogOpen, setTickerDialogOpen] = React.useState(false);
 
   return (
     <Card>
@@ -27,11 +30,16 @@ export default function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
         <Button
           variant="text"
           onClick={() => {
-            /* open AddTickerDialog */
+            setTickerDialogOpen(true);
           }}
         >
           + Add Ticker
         </Button>
+        <TickerDialog
+          open={tickerDialogOpen}
+          onClose={() => setTickerDialogOpen(false)}
+          portfolioId={portfolio.id}
+        />
       </CardContent>
     </Card>
   );
