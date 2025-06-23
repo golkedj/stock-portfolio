@@ -24,7 +24,7 @@ export default function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
         {/* TODO: Implement Ticker */}
         <Stack spacing={1} mt={2}>
           {portfolio.tickers.map((t) => (
-            <TickerCard key={t.symbol} ticker={t} portfolioId={portfolio.id} />
+            <TickerCard key={t.ticker} ticker={t} portfolio={portfolio} />
           ))}
         </Stack>
         <Button

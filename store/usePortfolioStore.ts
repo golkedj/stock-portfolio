@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Portfolio } from "@/types";
+import { Portfolio, Ticker } from "@/types";
 import { nanoid } from "nanoid";
 
 interface Store {
@@ -7,7 +7,7 @@ interface Store {
   addPortfolio: (name: string) => void;
   removePortfolio: (id: string) => void;
   editPortfolioName: (id: string, newName: string) => void;
-  // ... more methods like addTicker, removeTicker
+  addTicker: (portfolioId: string, ticker: Ticker) => void;
 }
 
 export const usePortfolioStore = create<Store>((set) => ({
@@ -25,5 +25,17 @@ export const usePortfolioStore = create<Store>((set) => ({
       portfolios: state.portfolios.map((p) =>
         p.id === id ? { ...p, name: newName } : p
       ),
+    })),
+  addTicker: (portfolioId, ticker: Ticker) =>
+    set((state) => ({
+      portfolios: state.portfolios.map((portfolio) => {
+        if (portfolio.id === portfolioId) {
+          return {
+            ...portfolio,
+            tickers: [...portfolio.tickers, ticker],
+          };
+        }
+        return portfolio;
+      }),
     })),
 }));

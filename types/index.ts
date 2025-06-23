@@ -1,9 +1,7 @@
 export type Ticker = {
-  symbol: string;
-  companyName?: string;
-  price?: number;
-  change?: number;
-  sparkline?: number[];
+  ticker: string;
+  name: string;
+  lastUpdated?: string;
 };
 
 export type Portfolio = {

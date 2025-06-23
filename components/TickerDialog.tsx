@@ -1,5 +1,7 @@
 import { useDebounce } from "@/hooks/useDebounce";
 import { searchAllTickers } from "@/lib/polygon";
+import { usePortfolioStore } from "@/store/usePortfolioStore";
+import { Ticker } from "@/types";
 import {
   Autocomplete,
   Button,
@@ -20,42 +22,65 @@ export default function TickerDialog({
   onClose: () => void;
   portfolioId: string;
 }) {
+  const addTicker = usePortfolioStore((s) => s.addTicker);
   const [tickerSymbolInput, setTickerSymbolInput] = React.useState("");
-  const [tickerOptions, setTickerOptions] = React.useState<string[]>([]);
+  const [tickerOptions, setTickerOptions] = React.useState<Ticker[]>([]);
+  const [selectedTicker, setSelectedTicker] = React.useState<Ticker | null>(
+    null
+  );
 
   const debouncedTickerSymbol = useDebounce(tickerSymbolInput, 1000);
 
+  const reset = () => {
+    setTickerSymbolInput("");
+    setTickerOptions([]);
+  };
+
   const handleAddTicker = () => {
     // Logic to add the ticker to the portfolio
+    console.log("Adding Ticker:", selectedTicker);
+    if (!!selectedTicker) {
+      addTicker(portfolioId, selectedTicker);
+    }
+    reset();
+    onClose();
+  };
+
+  const handleClose = () => {
+    reset();
     onClose();
   };
 
   useEffect(() => {
-    console.log("Debounced ticker symbol:", debouncedTickerSymbol);
     const handleSearch = async () => {
-      if (debouncedTickerSymbol) {
-        // Logic to fetch ticker data based on debouncedTickerSymbol
-        console.log(`Fetching data for ticker: ${debouncedTickerSymbol}`);
-      }
       const tickerResponse = await searchAllTickers(debouncedTickerSymbol);
-      console.log("Ticker response:", tickerResponse);
-      const newTickerOptions = tickerResponse.results.map(
-        (ticker) =>
-          `${ticker.ticker} - ${ticker.name} - ${ticker.last_updated_utc}`
-      );
-      console.log("New ticker options:", newTickerOptions);
+
+      // Due to duplicates showing up (see results for AAXJ),
+      // we include the last_updated_utc field to ensure uniqueness
+      const newTickerOptions =
+        tickerResponse.results.map((ticker) => {
+          return {
+            ticker: ticker.ticker,
+            name: ticker.name,
+            lastUpdated: ticker.last_updated_utc,
+          };
+        }) || [];
+      console.log("Ticker Options:", newTickerOptions);
       setTickerOptions(newTickerOptions);
     };
     handleSearch();
   }, [debouncedTickerSymbol]);
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
       <DialogTitle>Add Ticker</DialogTitle>
       <DialogContent>
         <Autocomplete
-          freeSolo
+          // freeSolo
           options={tickerOptions} // This should be replaced with the actual fetched tickers
+          getOptionLabel={(option) =>
+            `${option.ticker} - ${option.name} - ${option.lastUpdated}`
+          }
           renderInput={(params) => (
             <TextField
               {...params}
@@ -64,6 +89,18 @@ export default function TickerDialog({
               fullWidth
             />
           )}
+          onChange={(event, newValue) => {
+            console.log("newValue:", newValue);
+            if (
+              typeof newValue === "object" &&
+              newValue !== null &&
+              "ticker" in newValue
+            ) {
+              setSelectedTicker(newValue);
+            } else {
+              setSelectedTicker(null); // or handle error
+            }
+          }}
           onInputChange={(event, newValue) => {
             setTickerSymbolInput(newValue);
           }}
@@ -71,7 +108,7 @@ export default function TickerDialog({
         />
       </DialogContent>
       <DialogActions>
-        <Button color="error" onClick={onClose}>
+        <Button color="error" onClick={handleClose}>
           Cancel
         </Button>
         <Button onClick={handleAddTicker}>Add</Button>
