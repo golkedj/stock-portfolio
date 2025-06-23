@@ -38,4 +38,18 @@ export const usePortfolioStore = create<Store>((set) => ({
         return portfolio;
       }),
     })),
+  removeTicker: (portfolioId: string, tickerSymbol: string) =>
+    set((state) => ({
+      portfolios: state.portfolios.map((portfolio) => {
+        if (portfolio.id === portfolioId) {
+          return {
+            ...portfolio,
+            tickers: portfolio.tickers.filter(
+              (ticker) => ticker.ticker !== tickerSymbol
+            ),
+          };
+        }
+        return portfolio;
+      }),
+    })),
 }));

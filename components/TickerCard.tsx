@@ -11,7 +11,7 @@ export default function PortfolioCard({
   portfolio: Portfolio;
   ticker: Ticker;
 }) {
-  const removePortfolio = usePortfolioStore((s) => s.removePortfolio);
+  const removeTicker = usePortfolioStore((s) => s.removeTicker);
 
   return (
     <Card>
@@ -23,7 +23,10 @@ export default function PortfolioCard({
           alignItems="center"
         >
           <Typography variant="h6">{ticker.ticker}</Typography>
-          <Button color="error" onClick={() => removePortfolio(portfolio.id)}>
+          <Button
+            color="error"
+            onClick={() => removeTicker(portfolio.id, ticker.ticker)}
+          >
             Delete
           </Button>
         </Stack>
