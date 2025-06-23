@@ -30,9 +30,6 @@ export default function PortfolioCard({
             Delete
           </Button>
         </Stack>
-        <Typography variant="body2" color="text.secondary" mt={1}>
-          {portfolio.name}
-        </Typography>
       </CardContent>
     </Card>
   );
