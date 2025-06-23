@@ -8,6 +8,7 @@ interface Store {
   removePortfolio: (id: string) => void;
   editPortfolioName: (id: string, newName: string) => void;
   addTicker: (portfolioId: string, ticker: Ticker) => void;
+  removeTicker: (portfolioId: string, tickerSymbol: string) => void;
 }
 
 export const usePortfolioStore = create<Store>((set) => ({
