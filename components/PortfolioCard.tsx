@@ -2,7 +2,7 @@
 
 import { usePortfolioStore } from "@/store/usePortfolioStore";
 import { Portfolio } from "@/types";
-import { Button, Card, CardContent, Stack } from "@mui/material";
+import { Button, Card, CardContent, Stack, Typography } from "@mui/material";
 import React from "react";
 import PortfolioCardName from "./PortfolioCardName";
 import TickerCard from "./TickerCard";
@@ -21,11 +21,19 @@ export default function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
             Delete
           </Button>
         </Stack>
-        <Stack spacing={1} mt={2} mb={2}>
-          {portfolio.tickers.map((t) => (
-            <TickerCard key={t.ticker} ticker={t} portfolio={portfolio} />
-          ))}
-        </Stack>
+        {portfolio.tickers.length > 0 ? (
+          <Stack spacing={1} mt={2} mb={2}>
+            {portfolio.tickers.map((t) => (
+              <TickerCard key={t.ticker} ticker={t} portfolio={portfolio} />
+            ))}
+          </Stack>
+        ) : (
+          <Stack spacing={1} mt={2} mb={2}>
+            <Typography variant="body2" color="text.secondary">
+              No tickers added yet.
+            </Typography>
+          </Stack>
+        )}
         <Button
           variant="text"
           onClick={() => {
