@@ -13,15 +13,22 @@ export default function PortfolioCardName({
   const [name, setName] = React.useState(portfolio.name);
   const [editingName, setEditingName] = React.useState(false);
 
+  const finishEditing = () => {
+    setEditingName(false);
+    editPortfolioName(portfolio.id, name);
+  };
+
   if (editingName) {
     return (
       <input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        onBlur={() => {
-          setEditingName(false);
-          editPortfolioName(portfolio.id, name);
+        onBlur={finishEditing}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            finishEditing();
+          }
         }}
         autoFocus
         style={{
