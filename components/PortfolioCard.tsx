@@ -21,7 +21,6 @@ export default function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
             Delete
           </Button>
         </Stack>
-        {/* TODO: Implement Ticker */}
         <Stack spacing={1} mt={2}>
           {portfolio.tickers.map((t) => (
             <TickerCard key={t.ticker} ticker={t} portfolio={portfolio} />

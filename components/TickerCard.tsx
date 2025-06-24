@@ -16,7 +16,6 @@ export default function PortfolioCard({
   return (
     <Card>
       <CardContent>
-        {/* TODO: Implement Ticker Card */}
         <Stack
           direction="row"
           justifyContent="space-between"

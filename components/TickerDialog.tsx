@@ -37,8 +37,6 @@ export default function TickerDialog({
   };
 
   const handleAddTicker = () => {
-    // Logic to add the ticker to the portfolio
-    console.log("Adding Ticker:", selectedTicker);
     if (!!selectedTicker) {
       addTicker(portfolioId, selectedTicker);
     }
@@ -65,7 +63,6 @@ export default function TickerDialog({
             lastUpdated: ticker.last_updated_utc,
           };
         }) || [];
-      console.log("Ticker Options:", newTickerOptions);
       setTickerOptions(newTickerOptions);
     };
     handleSearch();
