@@ -4,7 +4,8 @@ import { Portfolio, Ticker } from "@/types";
 import { Card, CardContent, Typography, Button, Stack } from "@mui/material";
 import { usePortfolioStore } from "@/store/usePortfolioStore";
 import { useEffect, useState } from "react";
-import { getTickerSnapshot } from "@/lib/polygon";
+import { fetchTickerSparkline, getTickerSnapshot } from "@/lib/polygon";
+import { Line, LineChart, ResponsiveContainer, YAxis } from "recharts";
 
 export default function PortfolioCard({
   portfolio,
@@ -18,6 +19,8 @@ export default function PortfolioCard({
   const [price, setPrice] = useState<number | null>(null);
   const [prevClose, setPrevClose] = useState<number | null>(null);
 
+  const [sparklineData, setSparklineData] = useState<number[] | null>(null);
+
   useEffect(() => {
     async function loadData() {
       const data = await getTickerSnapshot(ticker.ticker);
@@ -26,9 +29,13 @@ export default function PortfolioCard({
       const resolvedPrice = price && price > 0 ? price : prevClose;
       setPrice(resolvedPrice);
       setPrevClose(prevClose);
+
+      const spark = await fetchTickerSparkline(ticker.ticker);
+      console.log("sparkline", spark);
+      setSparklineData(spark);
     }
     loadData();
-  }, [ticker]);
+  }, [ticker.ticker]);
 
   const change =
     price !== null && prevClose !== null ? price - prevClose : null;
@@ -75,6 +82,25 @@ export default function PortfolioCard({
             </Typography>
           )}
         </Stack>
+        {sparklineData && sparklineData.length > 1 && (
+          <div style={{ width: "100%", height: 50, marginTop: 8 }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart
+                data={sparklineData.map((val, i) => ({ x: i, y: val }))}
+                margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+              >
+                <Line
+                  type="monotone"
+                  dataKey="y"
+                  stroke="#1976d2"
+                  strokeWidth={2}
+                  dot={false}
+                />
+                <YAxis domain={["dataMin - 1", "dataMax + 1"]} hide />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
