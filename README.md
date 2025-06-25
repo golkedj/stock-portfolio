@@ -43,7 +43,7 @@ https://github.com/user-attachments/assets/f67fd59c-0731-4859-a80c-f17389af21c3
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/stock-portfolio-tracker.git
+git clone git@github.com:golkedj/stock-portfolio.git
 cd stock-portfolio-tracker
 ```
 
