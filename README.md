@@ -32,7 +32,7 @@ A simple web application to manage and track stock portfolios using real-time da
 
 ---
 
-## 🖼️ Demo (_Higher quality GIF coming soon_)
+## 🖼️ Demo
 
 https://github.com/user-attachments/assets/f67fd59c-0731-4859-a80c-f17389af21c3
 
