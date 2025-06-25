@@ -21,24 +21,14 @@ export default function PortfolioCard({
   useEffect(() => {
     async function loadData() {
       const data = await getTickerSnapshot(ticker.ticker);
-      console.log("Ticker data:", data);
-      console.log("data.ticker?.lastTrade?.p:", data.ticker?.lastTrade?.p);
-      setPrice(
-        data.ticker?.lastTrade?.p === undefined
-          ? null
-          : data.ticker?.lastTrade?.p
-      );
-      console.log("data.ticker?.prevDay?.c:", data.ticker?.prevDay?.c);
-      setPrevClose(
-        data.ticker?.prevDay?.c === undefined ? null : data.ticker?.prevDay?.c
-      );
+      const prevClose = data.ticker?.prevDay?.c || null;
+      const price = data.ticker?.day?.c || null;
+      const resolvedPrice = price && price > 0 ? price : prevClose;
+      setPrice(resolvedPrice);
+      setPrevClose(prevClose);
     }
     loadData();
   }, [ticker]);
-
-  useEffect(() => {
-    console.log("Price:", price);
-  }, [price]);
 
   const change =
     price !== null && prevClose !== null ? price - prevClose : null;
