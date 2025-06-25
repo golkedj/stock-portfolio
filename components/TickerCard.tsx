@@ -1,7 +1,14 @@
 "use client";
 
 import { Portfolio, Ticker } from "@/types";
-import { Card, CardContent, Typography, Button, Stack } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Stack,
+  Box,
+} from "@mui/material";
 import { usePortfolioStore } from "@/store/usePortfolioStore";
 import { useEffect, useState } from "react";
 import { fetchTickerSparkline, getTickerSnapshot } from "@/lib/polygon";
@@ -70,37 +77,40 @@ export default function PortfolioCard({
             Delete
           </Button>
         </Stack>
-        <Stack spacing={0.5} mt={2}>
-          <Typography variant="body1">
-            <strong>Price:</strong> ${price?.toFixed(2)}
-          </Typography>
-          {change !== null && changePercent !== null && (
-            <Typography variant="body2" color={changeColor}>
-              <strong>Change:</strong> {changeDirection}{" "}
-              {Math.abs(change).toFixed(2)} (
-              {Math.abs(changePercent).toFixed(2)}%)
+        <Stack direction="row" alignItems="center" spacing={2} mt={2}>
+          <Stack spacing={0.5}>
+            <Typography variant="body1">
+              <strong>Price:</strong> ${price?.toFixed(2)}
             </Typography>
+            {change !== null && changePercent !== null && (
+              <Typography variant="body2" color={changeColor}>
+                <strong>Change:</strong> {changeDirection}{" "}
+                {Math.abs(change).toFixed(2)} (
+                {Math.abs(changePercent).toFixed(2)}%)
+              </Typography>
+            )}
+          </Stack>
+
+          {sparklineData && sparklineData.length > 1 && (
+            <Box sx={{ flexGrow: 1, height: 40 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                  data={sparklineData.map((val, i) => ({ x: i, y: val }))}
+                  margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+                >
+                  <Line
+                    type="monotone"
+                    dataKey="y"
+                    stroke="#1976d2"
+                    strokeWidth={2}
+                    dot={false}
+                  />
+                  <YAxis domain={["dataMin - 1", "dataMax + 1"]} hide />
+                </LineChart>
+              </ResponsiveContainer>
+            </Box>
           )}
         </Stack>
-        {sparklineData && sparklineData.length > 1 && (
-          <div style={{ width: "100%", height: 50, marginTop: 8 }}>
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart
-                data={sparklineData.map((val, i) => ({ x: i, y: val }))}
-                margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
-              >
-                <Line
-                  type="monotone"
-                  dataKey="y"
-                  stroke="#1976d2"
-                  strokeWidth={2}
-                  dot={false}
-                />
-                <YAxis domain={["dataMin - 1", "dataMax + 1"]} hide />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        )}
       </CardContent>
     </Card>
   );
