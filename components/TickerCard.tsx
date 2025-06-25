@@ -23,8 +23,15 @@ export default function PortfolioCard({
       const data = await getTickerSnapshot(ticker.ticker);
       console.log("Ticker data:", data);
       console.log("data.ticker?.lastTrade?.p:", data.ticker?.lastTrade?.p);
-      setPrice(data.ticker?.lastTrade?.p || null);
-      setPrevClose(data.ticker?.prevDay?.c || null);
+      setPrice(
+        data.ticker?.lastTrade?.p === undefined
+          ? null
+          : data.ticker?.lastTrade?.p
+      );
+      console.log("data.ticker?.prevDay?.c:", data.ticker?.prevDay?.c);
+      setPrevClose(
+        data.ticker?.prevDay?.c === undefined ? null : data.ticker?.prevDay?.c
+      );
     }
     loadData();
   }, [ticker]);
