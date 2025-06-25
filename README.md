@@ -11,20 +11,13 @@ A simple web application to manage and track stock portfolios using real-time da
 - ✅ Create and manage multiple stock portfolios
 - ✅ Add and remove ticker symbols per portfolio
 - ✅ View real-time price, price change (vs previous close), and company name
-- ✅ (Optional) View a 7-day sparkline of price history
+- ✅ View a 7-day sparkline of price history
 - ✅ Clean, responsive UI with Material UI components
 - ✅ State management via Zustand
 
 ---
 
 ## 🖼️ Demo
-
-> You can deploy this project to [Vercel](https://vercel.com/) with one click!
-
-```bash
-npm run build
-npm run start
-```
 
 _(Optional: add a screenshot or link to a live deployment here.)_
 
@@ -45,9 +38,9 @@ cd stock-portfolio-tracker
 npm install
 ```
 
-### 3. Add your `.env.local`
+### 3. Add your `.env.development`
 
-Create a file called `.env.local` in the root directory with:
+Create a file called `.env.development` in the root directory with:
 
 ```
 NEXT_PUBLIC_POLYGON_API_KEY=your_polygon_api_key_here
@@ -74,7 +67,7 @@ Open your browser at [http://localhost:3000](http://localhost:3000).
 | **MUI**        | UI component library                 |
 | **Zustand**    | Lightweight state management         |
 | **Polygon.io** | Stock price data via REST API        |
-| **Recharts**   | (Optional) Sparkline visualization   |
+| **Recharts**   | Sparkline visualization              |
 
 ---
 
@@ -83,10 +76,11 @@ Open your browser at [http://localhost:3000](http://localhost:3000).
 ```
 /app              → App Router pages & layouts
 /components       → Reusable UI components
-/store            → Zustand store
+/hooks            → Custom Hooks
 /lib              → API integrations (Polygon)
+/public           → Public Assets
+/store            → Zustand store
 /types            → Type definitions
-/utils            → Formatters/helpers
 ```
 
 ---
