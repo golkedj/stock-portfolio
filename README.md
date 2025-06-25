@@ -22,10 +22,11 @@ A simple web application to manage and track stock portfolios using real-time da
 - Handle loading and error states gracefully
 - Improve polygon API interactions for robustness:
   - Consider migrating to a custom hook to address the following:
-    - Handle potential request limits
-    - Track loading and error states
-    - Cache results previously retrieved
-    - etc.
+  - Handle potential request limits
+  - Track loading and error states
+  - Cache results previously retrieved
+  - Remove duplicate requests currently being made
+  - etc.
 - Split TickerCard component down into smaller components
 - Add session persistence with sqlite or an alternative solution
   - Alternatively implement full persistence solution
