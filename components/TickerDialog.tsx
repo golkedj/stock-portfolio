@@ -4,6 +4,7 @@ import { usePortfolioStore } from "@/store/usePortfolioStore";
 import { Ticker } from "@/types";
 import {
   Autocomplete,
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -79,12 +80,14 @@ export default function TickerDialog({
             `${option.ticker} - ${option.name} - ${option.lastUpdated}`
           }
           renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Search Ticker"
-              variant="outlined"
-              fullWidth
-            />
+            <Box mt={1}>
+              <TextField
+                {...params}
+                label="Search Ticker"
+                variant="outlined"
+                fullWidth
+              />
+            </Box>
           )}
           onChange={(event, newValue) => {
             if (
