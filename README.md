@@ -10,7 +10,7 @@ A simple web application to manage and track stock portfolios using real-time da
 
 - ✅ Create and manage multiple stock portfolios
 - ✅ Add and remove ticker symbols per portfolio
-- ✅ View real-time price, price change (vs previous close), and company name
+- ✅ View current price, price change (vs previous close), and company name
 - ✅ View a 7-day sparkline of price history
 - ✅ Clean, responsive UI with Material UI components
 - ✅ State management via Zustand
