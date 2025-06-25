@@ -32,7 +32,7 @@ A simple web application to manage and track stock portfolios using real-time da
 
 ---
 
-## 🖼️ Demo
+## 🖼️ Demo (_Higher quality GIF coming soon_)
 
 ![App Demo](https://github.com/golkedj/stock-portfolio/blob/main/public/demo.gif)
 
