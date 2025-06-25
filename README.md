@@ -19,7 +19,7 @@ A simple web application to manage and track stock portfolios using real-time da
 
 ## 🖼️ Demo
 
-_(Optional: add a screenshot or link to a live deployment here.)_
+![App Demo](https://github.com/golkedj/stock-portfolio/blob/main/public/demo.gif)
 
 ---
 
