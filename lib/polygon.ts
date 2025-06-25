@@ -10,3 +10,16 @@ export async function searchAllTickers(search: string) {
   });
   return response;
 }
+
+export async function getTickerSnapshot(ticker: string) {
+  const response = await rest.stocks.snapshotTicker(ticker);
+  return response;
+}
+// export async function getTickerSnapshot(ticker: string) {
+//   const response = await rest.stocks.trades(ticker, {
+//     order: "asc",
+//     limit: 10,
+//     sort: "timestamp",
+//   });
+//   return response;
+// }

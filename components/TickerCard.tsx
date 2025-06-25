@@ -3,6 +3,8 @@
 import { Portfolio, Ticker } from "@/types";
 import { Card, CardContent, Typography, Button, Stack } from "@mui/material";
 import { usePortfolioStore } from "@/store/usePortfolioStore";
+import { useEffect, useState } from "react";
+import { getTickerSnapshot } from "@/lib/polygon";
 
 export default function PortfolioCard({
   portfolio,
@@ -13,6 +15,37 @@ export default function PortfolioCard({
 }) {
   const removeTicker = usePortfolioStore((s) => s.removeTicker);
 
+  const [price, setPrice] = useState<number | null>(null);
+  const [prevClose, setPrevClose] = useState<number | null>(null);
+
+  useEffect(() => {
+    async function loadData() {
+      const data = await getTickerSnapshot(ticker.ticker);
+      console.log("Ticker data:", data);
+      console.log("data.ticker?.lastTrade?.p:", data.ticker?.lastTrade?.p);
+      setPrice(data.ticker?.lastTrade?.p || null);
+      setPrevClose(data.ticker?.prevDay?.c || null);
+    }
+    loadData();
+  }, [ticker]);
+
+  useEffect(() => {
+    console.log("Price:", price);
+  }, [price]);
+
+  const change =
+    price !== null && prevClose !== null ? price - prevClose : null;
+  const changePercent =
+    change !== null && prevClose ? (change / prevClose) * 100 : null;
+  const changeDirection =
+    change && change > 0 ? "▲" : change && change < 0 ? "▼" : "";
+  const changeColor =
+    change && change > 0
+      ? "success.main"
+      : change && change < 0
+      ? "error.main"
+      : "text.secondary";
+
   return (
     <Card>
       <CardContent>
@@ -21,7 +54,10 @@ export default function PortfolioCard({
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography variant="h6">{ticker.ticker}</Typography>
+          <Typography variant="h6">
+            {ticker.ticker}
+            {ticker.name ? ` — ${ticker.name}` : ""}
+          </Typography>
           <Button
             color="error"
             onClick={() => removeTicker(portfolio.id, ticker.ticker)}
@@ -29,9 +65,18 @@ export default function PortfolioCard({
             Delete
           </Button>
         </Stack>
-        <Typography variant="body2" color="text.secondary" mt={1}>
-          {ticker.name}
-        </Typography>
+        <Stack spacing={0.5} mt={2}>
+          <Typography variant="body1">
+            <strong>Price:</strong> ${price?.toFixed(2)}
+          </Typography>
+          {change !== null && changePercent !== null && (
+            <Typography variant="body2" color={changeColor}>
+              <strong>Change:</strong> {changeDirection}{" "}
+              {Math.abs(change).toFixed(2)} (
+              {Math.abs(changePercent).toFixed(2)}%)
+            </Typography>
+          )}
+        </Stack>
       </CardContent>
     </Card>
   );
