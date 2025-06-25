@@ -1,18 +1,18 @@
 "use client";
 
+import { fetchTickerSparkline, getTickerSnapshot } from "@/lib/polygon";
+import { usePortfolioStore } from "@/store/usePortfolioStore";
 import { Portfolio, Ticker } from "@/types";
 import {
+  Box,
+  Button,
   Card,
   CardContent,
-  Typography,
-  Button,
   Stack,
-  Box,
+  Typography,
 } from "@mui/material";
-import { usePortfolioStore } from "@/store/usePortfolioStore";
 import { useEffect, useState } from "react";
-import { fetchTickerSparkline, getTickerSnapshot } from "@/lib/polygon";
-import { Line, LineChart, ResponsiveContainer, YAxis } from "recharts";
+import { Area, AreaChart, ResponsiveContainer, YAxis } from "recharts";
 
 export default function PortfolioCard({
   portfolio,
@@ -94,19 +94,36 @@ export default function PortfolioCard({
           {sparklineData && sparklineData.length > 1 && (
             <Box sx={{ flexGrow: 1, height: 40 }}>
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart
+                <AreaChart
                   data={sparklineData.map((val, i) => ({ x: i, y: val }))}
                   margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
                 >
-                  <Line
+                  <defs>
+                    <linearGradient
+                      id="sparklineGradient"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="0%" stopColor="#90caf9" stopOpacity={0.8} />
+                      <stop
+                        offset="100%"
+                        stopColor="#90caf9"
+                        stopOpacity={0.1}
+                      />
+                    </linearGradient>
+                  </defs>
+                  <Area
                     type="monotone"
                     dataKey="y"
-                    stroke="#1976d2"
+                    stroke="#90caf9"
+                    fill="url(#sparklineGradient)"
                     strokeWidth={2}
                     dot={false}
                   />
                   <YAxis domain={["dataMin - 1", "dataMax + 1"]} hide />
-                </LineChart>
+                </AreaChart>
               </ResponsiveContainer>
             </Box>
           )}
