@@ -38,7 +38,6 @@ export default function PortfolioCard({
       setPrevClose(prevClose);
 
       const spark = await fetchTickerSparkline(ticker.ticker);
-      console.log("sparkline", spark);
       setSparklineData(spark);
     }
     loadData();

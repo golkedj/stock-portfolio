@@ -38,8 +38,6 @@ export async function fetchTickerSparkline(ticker: string): Promise<number[]> {
     }
   );
 
-  console.log("aggregates", aggregates);
-
   const results = aggregates.results !== undefined ? aggregates.results : [];
 
   const closingPrices = results.map((r) => r.c || 0);
