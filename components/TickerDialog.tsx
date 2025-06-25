@@ -87,7 +87,6 @@ export default function TickerDialog({
             />
           )}
           onChange={(event, newValue) => {
-            console.log("newValue:", newValue);
             if (
               typeof newValue === "object" &&
               newValue !== null &&

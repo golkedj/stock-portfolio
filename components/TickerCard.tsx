@@ -43,6 +43,7 @@ export default function PortfolioCard({
       ? "error.main"
       : "text.secondary";
 
+  // TODO: Handle loading and error state
   return (
     <Card>
       <CardContent>
