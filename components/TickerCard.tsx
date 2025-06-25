@@ -59,7 +59,7 @@ export default function PortfolioCard({
 
   // TODO: Handle loading and error state
   return (
-    <Card>
+    <Card elevation={3}>
       <CardContent>
         <Stack
           direction="row"
