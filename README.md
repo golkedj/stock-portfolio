@@ -26,6 +26,7 @@ A simple web application to manage and track stock portfolios using real-time da
     - Track loading and error states
     - Cache results previously retrieved
     - etc.
+- Split TickerCard component down into smaller components
 - Add session persistence with sqlite or an alternative solution
   - Alternatively implement full persistence solution
 
